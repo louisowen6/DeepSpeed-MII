@@ -71,7 +71,7 @@ class GenerateParamsConfig(MIIConfigModel):
     @validator("stop", pre=True)
     def make_stop_string_list(cls, field_value: Union[str, List[str]]) -> List[str]:
         if isinstance(field_value, str):
-            return [field_value]
+            return field_value.split("|")
         return field_value
 
     @validator("stop")
@@ -173,7 +173,13 @@ class ModelConfig(MIIConfigModel):
     work with DeepSpeed-MII.
     """
 
-    max_length: Optional[int] = None
+    max_length: Optional[int] = 4096
+    """
+    The maximum number of tokens DeepSpeed-Inference can work with, including
+    the input and output tokens.
+    """
+
+    max_input_length: Optional[int] = 3600
     """
     The maximum number of tokens DeepSpeed-Inference can work with, including
     the input and output tokens.

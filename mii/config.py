@@ -71,7 +71,7 @@ class GenerateParamsConfig(MIIConfigModel):
     @validator("stop", pre=True)
     def make_stop_string_list(cls, field_value: Union[str, List[str]]) -> List[str]:
         if isinstance(field_value, str):
-            return field_value.split("|")
+            return field_value.split(":::")
         return field_value
 
     @validator("stop")
